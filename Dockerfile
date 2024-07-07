@@ -41,6 +41,7 @@ COPY --from=build /app/dist/angular-asset-list/server /app/dist/server
 
 # Install only the production dependencies
 COPY package*.json ./
+COPY .npmrc ./
 RUN npm install --only=production
 
 ENV PORT 8080
