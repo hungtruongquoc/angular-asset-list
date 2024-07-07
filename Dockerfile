@@ -50,4 +50,4 @@ ENV PORT 8080
 EXPOSE 8080
 
 # Start the Angular Universal server
-CMD ["node", "dist/server/main.js"]
+CMD ["node", "dist/server/server.mjs"]
