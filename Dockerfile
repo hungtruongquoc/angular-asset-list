@@ -24,7 +24,10 @@ COPY . .
 RUN npm run build --prod
 
 # Step 2: Serve the Angular app with Nginx
-FROM nginx:alpine
+FROM node:18 as production
+
+# Set the working directory
+WORKDIR /app
 
 # Add a build argument for the environment variable
 ARG FONTAWESOME_PACKAGE_TOKEN
@@ -32,14 +35,18 @@ ARG FONTAWESOME_PACKAGE_TOKEN
 # Export the environment variable
 ENV FONTAWESOME_PACKAGE_TOKEN=$FONTAWESOME_PACKAGE_TOKEN
 
-# Copy the built Angular app from the previous stage
-COPY --from=build /app/dist/angular-asset-list/browser /usr/share/nginx/html
+# Copy the built Angular app and server from the previous stage
+COPY --from=build /app/dist/angular-asset-list/browser /app/dist/browser
+COPY --from=build /app/dist/angular-asset-list/server /app/dist/server
 
-# Copy the Nginx configuration file
-COPY nginx.conf /etc/nginx/nginx.conf
+# Install only the production dependencies
+COPY package*.json ./
+RUN npm install --only=production
+
+ENV PORT 8080
 
 # Expose port 8080
 EXPOSE 8080
 
-# Start Nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Start the Angular Universal server
+CMD ["node", "dist/server/main.js"]
