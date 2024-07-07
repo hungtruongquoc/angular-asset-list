@@ -1,0 +1,10 @@
+{
+  "build": {
+    "docker": {
+      "file": "Dockerfile",
+      "args": {
+        "FONTAWESOME_PACKAGE_TOKEN": "${FONTAWESOME_PACKAGE_TOKEN}"
+      }
+    }
+  }
+}

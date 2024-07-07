@@ -4,8 +4,15 @@ FROM node:18 as build
 # Set the working directory
 WORKDIR /app
 
+# Add a build argument for the environment variable
+ARG FONTAWESOME_PACKAGE_TOKEN
+
+# Export the environment variable
+ENV FONTAWESOME_PACKAGE_TOKEN=$FONTAWESOME_PACKAGE_TOKEN
+
 # Copy the package.json and package-lock.json files
 COPY package*.json ./
+COPY .npmrc ./.npmrc
 
 # Install the dependencies
 RUN npm install
@@ -18,6 +25,12 @@ RUN npm run build --prod
 
 # Step 2: Serve the Angular app with Nginx
 FROM nginx:alpine
+
+# Add a build argument for the environment variable
+ARG FONTAWESOME_PACKAGE_TOKEN
+
+# Export the environment variable
+ENV FONTAWESOME_PACKAGE_TOKEN=$FONTAWESOME_PACKAGE_TOKEN
 
 # Copy the built Angular app from the previous stage
 COPY --from=build /app/dist/angular-asset-list/browser /usr/share/nginx/html
