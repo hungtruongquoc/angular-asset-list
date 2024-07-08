@@ -1,4 +1,4 @@
-import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
+import {afterNextRender, Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {UserState} from "../state/user.reducer";
 import {Store} from "@ngrx/store";
 import {selectUser} from "../state/user.selector";
@@ -25,16 +25,20 @@ export class IndexComponent implements OnInit, OnDestroy{
   constructor( private store: Store<{ user: UserState }>, private assetService: AssetService) {
     this.$user = this.store.select(selectUser);
     this.$data = this.assetService.getData();
+
+    afterNextRender(() => {
+      const userDataSubscription: Subscription = this.$user.subscribe((user) => {
+        console.log({user});
+      });
+      userDataSubscription.unsubscribe();
+      const dataSubscription: Subscription = this.$data.subscribe((data) => {
+        console.log({data});
+      });
+    })
   }
 
   ngOnInit(): void {
-    const userDataSubscription: Subscription = this.$user.subscribe((user) => {
-      console.log({user});
-    });
-    userDataSubscription.unsubscribe();
-    const dataSubscription: Subscription = this.$data.subscribe((data) => {
-      console.log({data});
-    });
+
   }
 
   ngOnDestroy(): void {
