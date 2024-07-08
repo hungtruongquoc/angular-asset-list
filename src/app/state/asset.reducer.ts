@@ -1,5 +1,5 @@
-import { createReducer, on } from '@ngrx/store';
-import {loadAsset} from "./asset.actions";
+import {createReducer, on} from '@ngrx/store';
+import {loadAssets, loadAssetsFailure, loadAssetsSuccess} from "./asset.actions";
 
 export interface AssetState {
   data: any;
@@ -9,7 +9,21 @@ export const initialState: AssetState = {
   data: null
 };
 
-export const userReducer = createReducer(
+export const assetReducer = createReducer(
   initialState,
-  on(loadAsset, (state, { data }) => ({ ...state, ...data }))
+  on(loadAssets, (state, {data}) => ({...state, ...data})),
+  on(loadAssetsSuccess, (state, {data}) => {
+    debugger;
+    return {
+      ...state,
+      ...data,
+      loading: false,
+      error: null
+    }
+  }),
+  on(loadAssetsFailure, (state, {error}) => ({
+    ...state,
+    loading: false,
+    error
+  })),
 );

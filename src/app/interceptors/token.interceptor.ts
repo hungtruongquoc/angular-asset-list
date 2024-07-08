@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators';
 import { UserState } from '../state/user.reducer';
-import {selectToken, selectUser} from '../state/user.selector';
+import {selectToken} from '../state/user.selector';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -14,7 +14,6 @@ export class TokenInterceptor implements HttpInterceptor {
     return this.store.select(selectToken).pipe(
       take(1),
       switchMap(token => {
-        debugger;
         if (token) {
           const cloned = req.clone({
             setHeaders: {
