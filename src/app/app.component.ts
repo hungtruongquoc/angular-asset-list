@@ -6,7 +6,9 @@ import {isPlatformBrowser} from "@angular/common";
 import {Store} from "@ngrx/store";
 import {UserState} from "./state/user.reducer";
 import {loadUser} from "./state/user.actions";
-import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import {NzIconDirective} from "ng-zorro-antd/icon";
+import { NzMenuModule } from 'ng-zorro-antd/menu';
 
 const BEETRACK_USER = makeStateKey<string>('user-info');
 
@@ -14,11 +16,12 @@ const BEETRACK_USER = makeStateKey<string>('user-info');
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, NzLayoutModule, NzIconDirective, NzMenuModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit{
+  isCollapsed: boolean = false;
   constructor(@Optional() @Inject(SERVER_DATA) private serverData: any, private httpClient: HttpClient,
               private transferState: TransferState, private store: Store<{ user: UserState }>,
               @Inject(PLATFORM_ID) private platformId: Object) {
