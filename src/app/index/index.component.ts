@@ -1,7 +1,6 @@
 import {afterNextRender, Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {UserState} from "../state/user.reducer";
 import {Store} from "@ngrx/store";
-import {selectUser} from "../state/user.selector";
 import {Observable, Subscription} from "rxjs";
 import { faCoffee, faSearch } from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
