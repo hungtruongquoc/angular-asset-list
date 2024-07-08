@@ -1,5 +1,54 @@
-<p>index works!</p>
-<fa-icon [icon]="faCoffee"></fa-icon>
-<button nz-button nzType="primary" nzShape="circle"><fa-icon [icon]="faSearch"></fa-icon></button>
-<p>Count:{{(assets$|async)?.length}}</p>
-<p *ngIf="(isLoading$|async)">Loading...</p>
+<nz-layout>
+  <nz-header>
+    <h1>Assets</h1>
+  </nz-header>
+  <nz-content ngSkipHydration>
+    <nz-table #assetTableTable [nzData]="(assets$|async)" nzShowSizeChanger [nzLoading]="!(assets$|async)"
+              [nzScroll]="{ x: '2150px', y: '900px' }" nzBordered [nzLoadingIndicator]="tableLoading">
+      <thead>
+      <tr>
+        <th nzLeft>Name</th>
+        <th nzLeft>Description</th>
+        <th>Type</th>
+        <th nzAlign="right">Quantity</th>
+        <th>Status</th>
+        <th>Barcode</th>
+        <th>Category</th>
+        <th>Location</th>
+        <th nzAlign="center">Created At</th>
+      </tr>
+      </thead>
+      <tbody *ngIf="!!(assets$|async)">
+        <tr *ngFor="let item of (assets$|async)">
+          <td nzLeft>
+            {{ item.name }}<br/>
+            <span nz-typography nzType="secondary">{{item.alternative_name}}</span>
+          </td>
+          <td nzLeft>{{ item.description }}</td>
+          <td>
+            <ng-container *ngIf="1 === item.type">
+              Unique barcode
+            </ng-container>
+            <ng-container *ngIf="2 === item.type">
+              Same barcode
+            </ng-container>
+          </td>
+          <td nzAlign="right">{{ item.quantity }}</td>
+          <td>{{ item.status }}</td>
+          <td>{{ item.barcode }}</td>
+          <td>
+            {{ item.category_name }}<br/>
+            <span nz-typography nzType="secondary">{{item.category_code}}</span>
+          </td>
+          <td>{{ item.location.name }}</td>
+          <td nzAlign="center">{{ item.created_at }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </nz-content>
+</nz-layout>
+<ng-template #tableLoading>
+  <nz-skeleton [nzActive]="!(assets$|async)"></nz-skeleton>
+</ng-template>
+
+

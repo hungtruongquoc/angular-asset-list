@@ -13,3 +13,10 @@ export const selectLoading = createSelector(
   selectAssetState,
   (state: AssetState) => state.loading
 );
+
+export const selectTotalCount = createSelector(
+  selectAssetState,
+  (state: AssetState) => state.recordsTotal
+);
+
+

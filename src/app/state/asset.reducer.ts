@@ -5,12 +5,14 @@ export interface AssetState {
   data: any;
   loading?: boolean;
   error?: any;
+  recordsTotal?: number;
 }
 
 export const initialState: AssetState = {
   data: null,
   loading: false,
-  error: null
+  error: null,
+  recordsTotal: 0
 };
 
 export const assetReducer = createReducer(
