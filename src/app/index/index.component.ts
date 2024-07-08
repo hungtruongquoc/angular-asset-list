@@ -19,28 +19,24 @@ import {AssetService} from "../services/asset.service";
 export class IndexComponent implements OnInit, OnDestroy{
   faCoffee = faCoffee;
   faSearch = faSearch;
-  private $user: Observable<any>;
   private $data: Observable<any>;
 
   constructor( private store: Store<{ user: UserState }>, private assetService: AssetService) {
-    this.$user = this.store.select(selectUser);
     this.$data = this.assetService.getData();
 
     afterNextRender(() => {
-      const userDataSubscription: Subscription = this.$user.subscribe((user) => {
-        console.log({user});
-      });
-      userDataSubscription.unsubscribe();
-      const dataSubscription: Subscription = this.$data.subscribe((data) => {
-        console.log({data});
-      });
+      const dataSubscription: Subscription = this.$data.subscribe(this.updateAssetData);
     })
   }
 
-  ngOnInit(): void {
+  private updateAssetData(data: any) {
+    console.log({data});
+  }
+
+  public ngOnInit(): void {
 
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
   }
 }
