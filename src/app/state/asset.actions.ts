@@ -1,4 +1,4 @@
-import { createAction, props } from '@ngrx/store';
+import {createAction, props} from '@ngrx/store';
 
 export const loadAssets = createAction(
   '[Asset] Load Asset',
@@ -14,3 +14,5 @@ export const loadAssetsFailure = createAction(
   '[Asset] Load Assets Failure',
   props<{ error: any }>()
 );
+
+export const setLoading = createAction('[Asset] Set Loading', props<{ value: boolean }>());
