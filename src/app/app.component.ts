@@ -6,6 +6,7 @@ import {isPlatformBrowser} from "@angular/common";
 import {Store} from "@ngrx/store";
 import {UserState} from "./state/user.reducer";
 import {loadUser} from "./state/user.actions";
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 
 const BEETRACK_USER = makeStateKey<string>('user-info');
 

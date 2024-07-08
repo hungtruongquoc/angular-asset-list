@@ -7,7 +7,7 @@ const serverConfig: ApplicationConfig = {
   providers: [
     provideServerRendering(),
     {provide: SERVER_DATA, useValue: {beetrackUsername: process.env["USERNAME"], beetrackPassword: process.env["PASSWORD"]}}
-  ]
+  ],
 };
 
 export const config = mergeApplicationConfig(appConfig, serverConfig);

@@ -3,10 +3,12 @@ import { loadUser } from './user.actions';
 
 export interface UserState {
   user: any;
+  token: string;
 }
 
 export const initialState: UserState = {
-  user: null
+  user: null,
+  token: ''
 };
 
 export const userReducer = createReducer(
