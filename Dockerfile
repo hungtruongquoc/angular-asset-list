@@ -6,9 +6,13 @@ WORKDIR /app
 
 # Add a build argument for the environment variable
 ARG FONTAWESOME_PACKAGE_TOKEN
+ARG USERNAME
+ARG PASSWORD
 
 # Export the environment variable
 ENV FONTAWESOME_PACKAGE_TOKEN=$FONTAWESOME_PACKAGE_TOKEN
+ENV USERNAME=$USERNAME
+ENV PASSWORD=$PASSWORD
 
 # Copy the package.json and package-lock.json files
 COPY package*.json ./
@@ -31,9 +35,13 @@ WORKDIR /app
 
 # Add a build argument for the environment variable
 ARG FONTAWESOME_PACKAGE_TOKEN
+ARG USERNAME
+ARG PASSWORD
 
 # Export the environment variable
 ENV FONTAWESOME_PACKAGE_TOKEN=$FONTAWESOME_PACKAGE_TOKEN
+ENV USERNAME=$USERNAME
+ENV PASSWORD=$PASSWORD
 
 # Copy the built Angular app and server from the previous stage
 COPY --from=build /app/dist/angular-asset-list/browser /app/dist/browser

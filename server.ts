@@ -5,6 +5,8 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
 import bootstrap from './src/main.server';
 
+import {SERVER_DATA} from './src/app/tokens/server-data';
+
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
@@ -13,7 +15,8 @@ export function app(): express.Express {
   const indexHtml = join(serverDistFolder, 'index.server.html');
 
   const commonEngine = new CommonEngine();
-
+  const beetrackUsername = process.env["USERNAME"];
+  const beetrackPassword = process.env["PASSWORD"];
   server.set('view engine', 'html');
   server.set('views', browserDistFolder);
 
@@ -35,7 +38,14 @@ export function app(): express.Express {
         documentFilePath: indexHtml,
         url: `${protocol}://${headers.host}${originalUrl}`,
         publicPath: browserDistFolder,
-        providers: [{ provide: APP_BASE_HREF, useValue: baseUrl }],
+        providers: [{ provide: APP_BASE_HREF, useValue: baseUrl },
+          {
+            provide: SERVER_DATA, // Provide data to your app
+            useValue: {
+              beetrackUsername,
+              beetrackPassword
+            }
+          }]
       })
       .then((html) => res.send(html))
       .catch((err) => next(err));

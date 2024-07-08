@@ -8,7 +8,5 @@ export const routes: Routes = [
     path: "", redirectTo: "index", pathMatch: "full"
   },
   {
-    path: "login", component: LoginPageComponent,
-  }, {
-    path: "index", component: IndexComponent, canMatch: [authenticationGuard],
+    path: "index", component: IndexComponent,
   }];
