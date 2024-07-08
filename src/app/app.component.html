@@ -2,22 +2,25 @@
   <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
     <div class="logo"></div>
     <ul nz-menu nzTheme="dark" nzMode="inline">
-      <li nz-submenu nzTitle="User" nzIcon="user">
+      <li nz-menu-item nzMatchRouter>
+        <span nz-icon nzType="file"></span>
+        <span>
+        <a routerLink="/">
+          Asset
+        </a>
+          </span>
+      </li>
+      <li nz-submenu nzTitle="User" nzIcon="user" style="display: none">
         <ul>
-          <li nz-menu-item>Tom</li>
           <li nz-menu-item>Bill</li>
           <li nz-menu-item>Alex</li>
         </ul>
       </li>
-      <li nz-submenu nzTitle="Team" nzIcon="team">
-        <ul>
-          <li nz-menu-item>Team 1</li>
-          <li nz-menu-item>Team 2</li>
-        </ul>
-      </li>
       <li nz-menu-item>
-        <span nz-icon nzType="file"></span>
-        <span>File</span>
+        <span nz-icon nzType="home"></span>
+        <span>
+          <a href="https://www.htruong83.com">Home</a>
+        </span>
       </li>
     </ul>
   </nz-sider>
@@ -33,6 +36,6 @@
     <nz-content>
       <router-outlet></router-outlet>
     </nz-content>
-    <nz-footer>Ant Design ©2020 Implement By Angular</nz-footer>
+    <nz-footer>Hung Truong ©2020 Implement By Angular</nz-footer>
   </nz-layout>
 </nz-layout>
