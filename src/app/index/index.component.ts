@@ -1,5 +1,9 @@
-import {Component} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
+import {UserState} from "../state/user.reducer";
+import {select, Store} from "@ngrx/store";
+import {selectUser} from "../state/user.selector";
 
+@Inject({providedIn: 'root'})
 @Component({
   selector: 'app-index',
   standalone: true,
@@ -8,7 +12,14 @@ import {Component} from '@angular/core';
   styleUrl: './index.component.scss',
   providers: []
 })
-export class IndexComponent {
-  constructor() {
+export class IndexComponent implements OnInit{
+  constructor( private store: Store<{ user: UserState }>,) {
   }
+
+  ngOnInit(): void {
+    this.store.select(selectUser).subscribe((user) => {
+      console.log({user});
+    });
+  }
+
 }

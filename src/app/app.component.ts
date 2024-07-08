@@ -22,6 +22,7 @@ export class AppComponent implements OnInit{
               private transferState: TransferState, private store: Store<{ user: UserState }>,
               @Inject(PLATFORM_ID) private platformId: Object) {
     if (serverData) {
+      console.log({serverData});
       this.httpClient.post("https://combuilding.beetrack.vn/api/v2/login", {username: this.serverData["beetrackUsername"], password: this.serverData["beetrackPassword"]})
         .subscribe((data: any) => {
           this.transferState.set(BEETRACK_USER, data["data"]);
