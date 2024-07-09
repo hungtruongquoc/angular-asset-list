@@ -67,7 +67,7 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   public updateSearchText(searchText: string|undefined): void {
     let queryParams: any = { ...this.route.snapshot.queryParams };
-    debugger;
+    
     if (searchText) {
       queryParams.searchText = searchText;
     } else {
