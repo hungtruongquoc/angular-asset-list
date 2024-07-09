@@ -18,6 +18,7 @@ import {NzPaginationModule} from "ng-zorro-antd/pagination";
 import {AssetStatusPipe} from "../pipes/asset-status.pipe";
 import {SearchFormComponent} from "../forms/search-form/search-form.component";
 import {CapitalizeWordPipe} from "../pipes/capitalize-word.pipe";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Inject({providedIn: 'root'})
 @Component({
@@ -38,7 +39,7 @@ export class IndexComponent implements OnInit, OnDestroy {
   currentPageIndex: number = 1;
   currentPageSize: number = 10;
 
-  constructor(private store: Store<{ asset: AssetState }>) {
+  constructor(private store: Store<{ asset: AssetState }>,  private router: Router, private route: ActivatedRoute) {
     this.assets$ = this.store.select(selectAssets);
     this.isLoading$ = this.store.select(selectLoading);
     this.totalRecord$ = this.store.select(selectTotalCount);
@@ -62,5 +63,21 @@ export class IndexComponent implements OnInit, OnDestroy {
   public onPageSizeChange(pageSize: number): void {
     this.currentPageIndex = 1;
     this.refreshData();
+  }
+
+  public updateSearchText(searchText: string|undefined): void {
+    let queryParams: any = { ...this.route.snapshot.queryParams };
+    debugger;
+    if (searchText) {
+      queryParams.searchText = searchText;
+    } else {
+      const { searchText, ...rest } = queryParams;
+      queryParams = rest;
+    }
+
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: queryParams
+    });
   }
 }
