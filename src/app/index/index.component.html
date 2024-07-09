@@ -58,6 +58,6 @@
 <ng-template #tableLoading>
   <nz-skeleton [nzActive]="!(isLoading$|async)"></nz-skeleton>
 </ng-template>
-<ng-template #totalTemplate let-total>Showing {{(filteredRecord$ | async)}} / {{ total }} items</ng-template>
+<ng-template #totalTemplate let-total>Showing {{ total }} / {{(totalRecord$ | async)}} items</ng-template>
 
 
