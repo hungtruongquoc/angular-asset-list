@@ -37,7 +37,7 @@
           </ng-container>
         </td>
         <td nzAlign="right">{{ item.quantity }}</td>
-        <td>{{ item.status | asset_status }}</td>
+        <td>{{ item.status | asset_status | capitalized_word }}</td>
         <td>{{ item.barcode }}</td>
         <td>
           {{ item.category_name }}<br/>

@@ -17,6 +17,7 @@ import {NzTypographyModule} from 'ng-zorro-antd/typography';
 import {NzPaginationModule} from "ng-zorro-antd/pagination";
 import {AssetStatusPipe} from "../pipes/asset-status.pipe";
 import {SearchFormComponent} from "../forms/search-form/search-form.component";
+import {CapitalizeWordPipe} from "../pipes/capitalize-word.pipe";
 
 @Inject({providedIn: 'root'})
 @Component({
@@ -25,7 +26,8 @@ import {SearchFormComponent} from "../forms/search-form/search-form.component";
   templateUrl: './index.component.html',
   styleUrl: './index.component.scss',
   imports: [FontAwesomeModule, NzButtonModule, AsyncPipe, NgIf, NzProgressModule, NzSkeletonModule, NzLayoutModule,
-    NzTableModule, NgForOf, NzTypographyModule, NzPaginationModule, AssetStatusPipe, SearchFormComponent]
+    NzTableModule, NgForOf, NzTypographyModule, NzPaginationModule, AssetStatusPipe, SearchFormComponent,
+    CapitalizeWordPipe]
 })
 export class IndexComponent implements OnInit, OnDestroy {
   faCoffee: IconDefinition = faCoffee;
