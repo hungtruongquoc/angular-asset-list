@@ -49,7 +49,7 @@
       </tr>
       </tbody>
     </nz-table>
-    <nz-pagination [nzPageIndex]="1" [nzTotal]="(totalRecord$|async)" nzShowSizeChanger [nzPageSize]="10"
+    <nz-pagination [nzPageIndex]="1" [nzTotal]="(filteredRecord$ | async)" nzShowSizeChanger [nzPageSize]="10"
                    [nzShowTotal]="totalTemplate" [(nzPageIndex)]="currentPageIndex" [(nzPageSize)]="currentPageSize"
                    (nzPageSizeChange)="onPageSizeChange($event)"
                    (nzPageIndexChange)="onPageIndexChange($event)"></nz-pagination>
@@ -58,6 +58,6 @@
 <ng-template #tableLoading>
   <nz-skeleton [nzActive]="!(isLoading$|async)"></nz-skeleton>
 </ng-template>
-<ng-template #totalTemplate let-total>Total {{ total }} items</ng-template>
+<ng-template #totalTemplate let-total>Showing {{(filteredRecord$ | async)}} / {{ total }} items</ng-template>
 
 

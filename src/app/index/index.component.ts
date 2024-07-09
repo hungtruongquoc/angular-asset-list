@@ -7,7 +7,7 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {NzButtonModule} from "ng-zorro-antd/button";
 import {AssetState} from "../state/asset.reducer";
 import {loadAssets} from "../state/asset.actions";
-import {selectAssets, selectLoading, selectTotalCount} from "../state/asset.selector";
+import {selectAssets, selectFilteredCount, selectLoading, selectTotalCount} from "../state/asset.selector";
 import {IconDefinition} from "@fortawesome/pro-duotone-svg-icons";
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {NzProgressModule} from 'ng-zorro-antd/progress';
@@ -40,6 +40,7 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   assets$: Observable<any>;
   totalRecord$: Observable<any>;
+  filteredRecord$: Observable<any>;
   isLoading$: Observable<boolean | undefined>;
   currentPageIndex: number = 1;
   currentPageSize: number = 10;
@@ -50,6 +51,7 @@ export class IndexComponent implements OnInit, OnDestroy {
     this.assets$ = this.store.select(selectAssets);
     this.isLoading$ = this.store.select(selectLoading);
     this.totalRecord$ = this.store.select(selectTotalCount);
+    this.filteredRecord$ = this.store.select(selectFilteredCount);
   }
 
   private refreshData(searchText: string | undefined = undefined): void {

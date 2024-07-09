@@ -19,4 +19,10 @@ export const selectTotalCount = createSelector(
   (state: AssetState) => state.recordsTotal
 );
 
+export const selectFilteredCount = createSelector(
+  selectAssetState,
+  (state: AssetState) => state.recordsFiltered
+);
+
+
 

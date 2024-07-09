@@ -6,13 +6,15 @@ export interface AssetState {
   loading?: boolean;
   error?: any;
   recordsTotal?: number;
+  recordsFiltered?: number
 }
 
 export const initialState: AssetState = {
   data: null,
   loading: false,
   error: null,
-  recordsTotal: 0
+  recordsTotal: 0,
+  recordsFiltered: 0
 };
 
 export const assetReducer = createReducer(
