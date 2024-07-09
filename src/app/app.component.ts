@@ -12,7 +12,7 @@ import {
 import {Router, RouterLink, RouterOutlet} from '@angular/router';
 import {SERVER_DATA} from "./tokens/server-data";
 import {HttpClient} from "@angular/common/http";
-import {isPlatformBrowser} from "@angular/common";
+import {AsyncPipe, isPlatformBrowser} from "@angular/common";
 import {Store} from "@ngrx/store";
 import {UserState} from "./state/user.reducer";
 import {loadUser} from "./state/user.actions";
@@ -21,6 +21,8 @@ import {NzIconDirective} from "ng-zorro-antd/icon";
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {faHome} from "@fortawesome/pro-regular-svg-icons";
+import {Observable} from "rxjs";
+import {selectUser} from "./state/user.selector";
 
 const BEETRACK_USER = makeStateKey<string>('user-info');
 
@@ -28,7 +30,7 @@ const BEETRACK_USER = makeStateKey<string>('user-info');
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NzLayoutModule, NzIconDirective, NzMenuModule, RouterLink, FontAwesomeModule],
+  imports: [RouterOutlet, NzLayoutModule, NzIconDirective, NzMenuModule, RouterLink, FontAwesomeModule, AsyncPipe],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
@@ -36,6 +38,7 @@ export class AppComponent implements OnInit{
   isCollapsed: boolean = false;
   faHome = faHome;
   private router = inject(Router);
+  user$: Observable<any>;
 
   constructor(@Optional() @Inject(SERVER_DATA) private serverData: any, private httpClient: HttpClient,
               private transferState: TransferState, private store: Store<{ user: UserState }>,
@@ -49,6 +52,7 @@ export class AppComponent implements OnInit{
     } else {
       console.log('Server Data is not available');
     }
+    this.user$ = this.store.select(selectUser);
   }
 
   public ngOnInit() {

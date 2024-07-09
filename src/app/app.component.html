@@ -32,6 +32,7 @@
             [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
             (click)="isCollapsed = !isCollapsed"
           ></span>
+      <span>Logged in as {{(user$|async)?.name}}</span>
     </nz-header>
     <nz-content>
       <router-outlet></router-outlet>
