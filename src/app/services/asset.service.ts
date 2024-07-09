@@ -11,7 +11,7 @@ export class AssetService {
   constructor(private http: HttpClient) {
   }
 
-  getData(start: number, length: number): Observable<any> {
+  getData(start: number, length: number, searchText: string | undefined = undefined): Observable<any> {
     const body = new HttpParams()
       .set('start', (start - 1) * length)
       .set('length', length)
@@ -23,7 +23,7 @@ export class AssetService {
       .set('columns[0][orderable]', true)
       .set('order[0][column]', 0)
       .set('order[0][dir]', 'desc')
-      .set('customsearch[searchText]', '');
+      .set('customsearch[searchText]', searchText ? searchText : '');
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'

@@ -52,8 +52,8 @@ export class IndexComponent implements OnInit, OnDestroy {
     this.totalRecord$ = this.store.select(selectTotalCount);
   }
 
-  private refreshData(): void {
-    this.store.dispatch(loadAssets({data: {start: this.currentPageIndex, length: this.currentPageSize}}));
+  private refreshData(searchText: string | undefined = undefined): void {
+    this.store.dispatch(loadAssets({data: {start: this.currentPageIndex, length: this.currentPageSize, searchText}}));
   }
 
   public ngOnInit(): void {
@@ -85,6 +85,10 @@ export class IndexComponent implements OnInit, OnDestroy {
 
     this.hasFilter = !!searchText;
 
+    if (searchText && queryParams.searchText != searchText) {
+      this.currentPageIndex = 1;
+    }
+
     if (searchText) {
       queryParams.searchText = searchText;
     } else {
@@ -96,5 +100,7 @@ export class IndexComponent implements OnInit, OnDestroy {
       relativeTo: this.route,
       queryParams: queryParams
     });
+
+    this.refreshData(searchText)
   }
 }

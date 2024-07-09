@@ -3,6 +3,7 @@ import {createAction, props} from '@ngrx/store';
 export interface PageInfo {
   start: number;
   length: number;
+  searchText?:string;
 }
 
 export const loadAssets = createAction(
