@@ -11,10 +11,10 @@ export class AssetService {
   constructor(private http: HttpClient) {
   }
 
-  getData(): Observable<any> {
+  getData(start: number, length: number): Observable<any> {
     const body = new HttpParams()
-      .set('start', '0')
-      .set('length', '10')
+      .set('start', (start - 1) * length)
+      .set('length', length)
       .set('draw', '1')
       .set('customsearch[useTextSearchOr]', false)
       .set('columns[0][data]', 'created_at')

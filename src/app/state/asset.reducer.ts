@@ -17,7 +17,7 @@ export const initialState: AssetState = {
 
 export const assetReducer = createReducer(
   initialState,
-  on(loadAssets, (state, {data}) => ({...state, ...data})),
+  on(loadAssets, (state, {data}) => ({...state, loading: true})),
   on(setLoading, (state, {value}) => ({...state, loading: value})),
   on(loadAssetsSuccess, (state, {data}) => ({
       ...state,

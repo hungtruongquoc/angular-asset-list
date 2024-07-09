@@ -1,8 +1,13 @@
 import {createAction, props} from '@ngrx/store';
 
+export interface PageInfo {
+  start: number;
+  length: number;
+}
+
 export const loadAssets = createAction(
   '[Asset] Load Asset',
-  props<{ data: any }>()
+  props<{ data: PageInfo }>()
 );
 
 export const loadAssetsSuccess = createAction(

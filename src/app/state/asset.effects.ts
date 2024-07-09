@@ -10,8 +10,8 @@ export class AssetEffects {
   loadAssets$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadAssets),
-      mergeMap(() =>
-        this.assetService.getData().pipe(
+      mergeMap(({data}) =>
+        this.assetService.getData(data.start, data.length).pipe(
           map(data => loadAssetsSuccess({data: data.data})),
           catchError(error => of(loadAssetsFailure({ error })))
         )
