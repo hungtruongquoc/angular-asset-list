@@ -34,4 +34,8 @@ export class SearchFormComponent {
   })
 
   constructor(private fb: NonNullableFormBuilder) {}
+
+  public resetForm() {
+    this.searchForm.reset();
+  }
 }

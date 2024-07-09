@@ -9,7 +9,7 @@
   </nz-form-item>
   <ng-template #inputClearTpl>
     @if (inputValue) {
-      <span (click)="inputValue = ''" class="clear-button">
+      <span (click)="resetForm()" class="clear-button">
         <fa-icon [icon]="faClear"/>
       </span>
     } @else {
