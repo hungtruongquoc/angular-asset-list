@@ -1,6 +1,6 @@
 <nz-layout>
   <nz-header>
-    <h1>Assets</h1>
+    <h1>Assets <fa-icon [icon]="faFilter" size="xs" appToggleIcon [isShow]="hasFilter"></fa-icon> </h1>
   </nz-header>
   <nz-content ngSkipHydration>
     <app-search-form (onTextChange)="updateSearchText($event)" [initialText]="searchTextFromUrl"></app-search-form>
