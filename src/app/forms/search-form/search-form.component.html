@@ -1,0 +1,21 @@
+<form nz-form [formGroup]="searchForm">
+  <nz-form-item>
+    <nz-form-control>
+      <nz-input-group [nzSuffix]="inputClearTpl">
+      <input nz-input name="search_text" type="text" id="search-text" formControlName="searchText"
+             placeholder="Type to search" [(ngModel)]="inputValue" />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <ng-template #inputClearTpl>
+    @if (inputValue) {
+      <span (click)="inputValue = ''" class="clear-button">
+        <fa-icon [icon]="faClear"/>
+      </span>
+    } @else {
+      <span class="search-button">
+        <fa-icon [icon]="faSearch"/>
+      </span>
+    }
+  </ng-template>
+</form>

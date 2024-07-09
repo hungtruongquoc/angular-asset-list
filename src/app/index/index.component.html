@@ -3,6 +3,7 @@
     <h1>Assets</h1>
   </nz-header>
   <nz-content ngSkipHydration>
+    <app-search-form></app-search-form>
     <nz-table #assetTableTable [nzData]="(assets$|async)" [nzLoading]="(isLoading$|async)"
               [nzFrontPagination]="false"
               [nzScroll]="{x: '1500px', y: '900px' }" nzBordered [nzLoadingIndicator]="tableLoading">
