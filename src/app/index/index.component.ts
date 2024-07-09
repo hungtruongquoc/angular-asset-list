@@ -19,6 +19,7 @@ import {AssetStatusPipe} from "../pipes/asset-status.pipe";
 import {SearchFormComponent} from "../forms/search-form/search-form.component";
 import {CapitalizeWordPipe} from "../pipes/capitalize-word.pipe";
 import {ActivatedRoute, Router} from "@angular/router";
+import {take} from "rxjs/operators";
 
 @Inject({providedIn: 'root'})
 @Component({
@@ -38,6 +39,7 @@ export class IndexComponent implements OnInit, OnDestroy {
   isLoading$: Observable<boolean | undefined>;
   currentPageIndex: number = 1;
   currentPageSize: number = 10;
+  searchTextFromUrl: string | undefined = '';
 
   constructor(private store: Store<{ asset: AssetState }>,  private router: Router, private route: ActivatedRoute) {
     this.assets$ = this.store.select(selectAssets);
@@ -50,7 +52,15 @@ export class IndexComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    this.refreshData();
+    this.route.queryParams.pipe(take(1)).subscribe(params => {
+      const searchText = params['searchText'];
+      if (searchText !== undefined) {
+        // Assuming SearchFormComponent has a method to set the searchText value
+        // You might need to adjust this part based on your actual implementation
+        this.searchTextFromUrl = searchText;
+      }
+      this.refreshData();
+    });
   }
 
   public ngOnDestroy(): void {
@@ -67,7 +77,7 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   public updateSearchText(searchText: string|undefined): void {
     let queryParams: any = { ...this.route.snapshot.queryParams };
-    
+
     if (searchText) {
       queryParams.searchText = searchText;
     } else {
